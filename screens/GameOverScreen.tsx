@@ -7,7 +7,15 @@ import PrimaryButton from '../components/ui/PrimaryButton';
 
 const success = Success;
 
-const GameOverScreen = () => {
+const GameOverScreen = ({
+  roundsNumber,
+  userNumber,
+  onStartNewGame,
+}: {
+  roundsNumber: number;
+  userNumber: number;
+  onStartNewGame: () => void;
+}) => {
   return (
     <View style={styles.rootContainer}>
       <Title>{'GAME OVER!'}</Title>
@@ -15,10 +23,11 @@ const GameOverScreen = () => {
         <Image style={styles.image} source={success} />
       </View>
       <Text style={styles.summaryText}>
-        Your phone needed <Text style={styles.highlight}>X</Text> rounds to
-        guess the number <Text style={styles.highlight}>Y</Text>.
+        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{' '}
+        rounds to guess the number{' '}
+        <Text style={styles.highlight}>{userNumber}</Text>.
       </Text>
-      <PrimaryButton onPress={() => {}}>{'Start New Game'}</PrimaryButton>
+      <PrimaryButton onPress={onStartNewGame}>{'Start New Game'}</PrimaryButton>
     </View>
   );
 };

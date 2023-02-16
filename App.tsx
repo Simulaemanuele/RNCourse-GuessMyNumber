@@ -25,10 +25,15 @@ const backgroundImg = Background;
 
 function App(): JSX.Element {
   //state setted for the number the user choose
-  const [userNumber, setUserNumber] = React.useState<number | undefined>();
+  const [userNumber, setUserNumber] = React.useState<
+    number | undefined | null
+  >();
 
   //state setted for the game over screen
   const [gameIsOver, setGameIsOver] = React.useState<boolean>(true);
+
+  //state setted for the number of invocation of the guesses handler invocation
+  const [guessRounds, setGuessRounds] = React.useState<number>(0);
 
   //method handler can pick the number and setting the value as userNumber and start the game setting Game over statte to false
   const pickedNumberHandler = (pickedNumber: number) => {
@@ -41,6 +46,12 @@ function App(): JSX.Element {
     setGameIsOver(true);
   };
 
+  //method handler can restart the game
+  const startNewGameHandler = () => {
+    setUserNumber(null);
+    setGuessRounds(0);
+  };
+
   //gloval variable which can store a TSX component in this case screens
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
@@ -51,9 +62,15 @@ function App(): JSX.Element {
     );
   }
 
-  //condition that turns the screen in Game Over Screen
+  //condition that turns the screen in Game Over Screen and pass some props and function to render them within
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        roundsNumber={guessRounds}
+        userNumber={userNumber}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
 
   return (
