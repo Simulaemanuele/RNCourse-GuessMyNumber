@@ -18,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import Background from './assets/images/background.png';
+import Colors from './constants/Colors';
 
 const backgroundImg = Background;
 
@@ -35,7 +36,9 @@ function App(): JSX.Element {
   }
 
   return (
-    <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.rootScreen}>
+    <LinearGradient
+      colors={[Colors.primary700, Colors.accent500]}
+      style={styles.rootScreen}>
       <ImageBackground
         source={backgroundImg}
         resizeMode={'cover'}
