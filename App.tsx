@@ -42,8 +42,9 @@ function App(): JSX.Element {
   };
 
   //method handler can turn on the Game Over screen
-  const gameOverHandler = () => {
+  const gameOverHandler = (numberOfRounds: number) => {
     setGameIsOver(true);
+    setGuessRounds(numberOfRounds);
   };
 
   //method handler can restart the game

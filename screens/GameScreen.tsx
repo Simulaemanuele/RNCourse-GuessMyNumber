@@ -7,6 +7,7 @@ import PrimaryButton from '../components/ui/PrimaryButton';
 import Title from '../components/ui/Title';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {FlatList} from 'react-native';
+import GuessLogItem from '../components/game/GuessLogItem';
 
 //Function it can generate a random number in a certain range excluding one value
 const generateRandomBetween = (
@@ -32,7 +33,7 @@ const GameScreen = ({
   onGameOver,
 }: {
   userNumber: number;
-  onGameOver: () => void;
+  onGameOver: (x: number) => void;
 }) => {
   //Initial guess provided by the first call of the random generator function
   const initialGuess = generateRandomBetween(1, 100, userNumber);
@@ -44,7 +45,7 @@ const GameScreen = ({
 
   React.useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
 
@@ -79,6 +80,8 @@ const GameScreen = ({
     setGuessRounds(prevGuessRounds => [...prevGuessRounds, newRndNumber]);
   };
 
+  const guessRoundsListLength = guessRounds.length;
+
   return (
     <View style={styles.screen}>
       <Title>{"Opponent's Guess"}</Title>
@@ -100,13 +103,18 @@ const GameScreen = ({
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         {/* {guessRounds.map(guessRound => (
           <Text key={guessRound}>{guessRound}</Text>
         ))} */}
         <FlatList
           data={guessRounds}
-          renderItem={itemData => <Text>{itemData.item}</Text>}
+          renderItem={itemData => (
+            <GuessLogItem
+              roundNumber={itemData.index + 1}
+              guess={itemData.item}
+            />
+          )}
           keyExtractor={item => item.toString()}
         />
       </View>
@@ -129,5 +137,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });
