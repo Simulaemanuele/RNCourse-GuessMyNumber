@@ -23,16 +23,24 @@ const generateRandomBetween = (
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({userNumber}: {userNumber: number}) => {
+const GameScreen = ({
+  userNumber,
+  onGameOver,
+}: {
+  userNumber: number;
+  onGameOver: () => void;
+}) => {
   //Initial guess provided by the first call of the random generator function
-  const initialGuess = generateRandomBetween(
-    minBoundary,
-    maxBoundary,
-    userNumber,
-  );
+  const initialGuess = generateRandomBetween(1, 100, userNumber);
 
   //the initial guess become the default value of this state
   const [currentGuess, setCurrentGuess] = React.useState(initialGuess);
+
+  React.useEffect(() => {
+    if (currentGuess === userNumber) {
+      onGameOver();
+    }
+  }, [currentGuess, userNumber, onGameOver]);
 
   //this handler can check the direction of calculation that is "lower" or greater and if the user is doing a mistake return showing an alert
   const nextGuessHandler = (direction: string) => {

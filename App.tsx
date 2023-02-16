@@ -19,20 +19,41 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import Background from './assets/images/background.png';
 import Colors from './constants/Colors';
+import GameOverScreen from './screens/GameOverScreen';
 
 const backgroundImg = Background;
 
 function App(): JSX.Element {
+  //state setted for the number the user choose
   const [userNumber, setUserNumber] = React.useState<number | undefined>();
 
+  //state setted for the game over screen
+  const [gameIsOver, setGameIsOver] = React.useState<boolean>(true);
+
+  //method handler can pick the number and setting the value as userNumber and start the game setting Game over statte to false
   const pickedNumberHandler = (pickedNumber: number) => {
     setUserNumber(pickedNumber);
+    setGameIsOver(false);
   };
 
+  //method handler can turn on the Game Over screen
+  const gameOverHandler = () => {
+    setGameIsOver(true);
+  };
+
+  //gloval variable which can store a TSX component in this case screens
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
+  //condition that turns the screen in Game Screen
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  //condition that turns the screen in Game Over Screen
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen />;
   }
 
   return (
