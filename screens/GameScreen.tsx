@@ -5,6 +5,7 @@ import Card from '../components/ui/Card';
 import InstructionText from '../components/ui/InstructionText';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Title from '../components/ui/Title';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 //Function it can generate a random number in a certain range excluding one value
 const generateRandomBetween = (
@@ -80,12 +81,12 @@ const GameScreen = ({
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-              -
+              <Icon name={'remove'} size={24} color={'white'} />
             </PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-              +
+              <Icon name={'add'} size={24} color={'white'} />
             </PrimaryButton>
           </View>
         </View>

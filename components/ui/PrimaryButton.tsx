@@ -6,7 +6,7 @@ const PrimaryButton = ({
   children,
   onPress,
 }: {
-  children: string;
+  children: any;
   onPress: () => void;
 }) => {
   return (
