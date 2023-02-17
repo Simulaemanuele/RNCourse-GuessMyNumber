@@ -13,6 +13,7 @@ import {
   Text,
   View,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import StartGameScreen from './screens/StartGameScreen';
@@ -20,6 +21,7 @@ import GameScreen from './screens/GameScreen';
 import Background from './assets/images/background.png';
 import Colors from './constants/Colors';
 import GameOverScreen from './screens/GameOverScreen';
+// import { StatusBar } from 'react-native/Libraries/Components/StatusBar/StatusBar';
 
 const backgroundImg = Background;
 
@@ -75,17 +77,20 @@ function App(): JSX.Element {
   }
 
   return (
-    <LinearGradient
-      colors={[Colors.primary700, Colors.accent500]}
-      style={styles.rootScreen}>
-      <ImageBackground
-        source={backgroundImg}
-        resizeMode={'cover'}
-        style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}>
-        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+    <>
+      <StatusBar barStyle={'light-content'} />
+      <LinearGradient
+        colors={[Colors.primary700, Colors.accent500]}
+        style={styles.rootScreen}>
+        <ImageBackground
+          source={backgroundImg}
+          resizeMode={'cover'}
+          style={styles.rootScreen}
+          imageStyle={styles.backgroundImage}>
+          <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
